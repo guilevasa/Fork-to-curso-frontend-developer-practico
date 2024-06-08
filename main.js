@@ -108,10 +108,7 @@ productList.push({
 
 /*"product of productList" es el "atajo" para la sintaxis del ciclo "for", del array "productList" va a iterar cada elementos (product)*/
 for (product of productList) {
-    
-    /*const cardsContainer = document.createElement('div'); /*"document.createElement('div')" para introducir el elemento "div" al index*/
-    /*cardsContainer.classList.add('cards-container'); /*dentro del "cardsContainer" (div) se creara la clase (classList) "cards-container"*/
-
+      
     const productCard = document.createElement('div'); /*"document.createElement('div')" para introducir el elemento "div" al index*/
     productCard.classList.add('product-card'); /*dentro del "productCard" (div) se creara la clase (classList) "product-card"*/
 
