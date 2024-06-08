@@ -7,12 +7,16 @@ const desktopMenu = document.querySelector('.desktop-menu');
 const menuHamIcon = document.querySelector('.menu');
 const mobileMenu = document.querySelector('.mobile-menu');
 
-/*terceras dos variables para la accion de mostrar el elemento de la clase "product-detail"*/
+/*terceras dos variables para la accion de mostrar el elemento del id: shoppingCartContainer*/
 const shoppingCartIcon = document.querySelector('.navbar-shopping-cart');
 const shoppingCartContainer = document.querySelector('#shoppingCartContainer');
 
 /*variable para la estructura HTML que se esta creando desde JS*/
 const cardsContainer = document.querySelector('.cards-container');
+
+/*variable para la accion de mostrar el elemento del id: product-detail*/
+const productDetailContainer = document.querySelector('#productDetail');
+const productDetailCloseIcon = document.querySelector('.product-detail-close'); /*var. para cerrar la imagen del detalle del producto*/
 
 
 navbarEmail.addEventListener('click', toggleDesktopMenu); /*metodo ".addEventListener" el cual ejecuta la accion que se le indique,
@@ -21,6 +25,8 @@ navbarEmail.addEventListener('click', toggleDesktopMenu); /*metodo ".addEventLis
 menuHamIcon.addEventListener('click', toggleMobileMenu);
 
 shoppingCartIcon.addEventListener('click', toggleProductDetail);
+
+productDetailCloseIcon.addEventListener('click', closeProductDetailAside);
 
 
 function toggleDesktopMenu() { /*ejecuta la clase que inactiva el elemento "desktop-menu"*/
@@ -31,6 +37,8 @@ function toggleDesktopMenu() { /*ejecuta la clase que inactiva el elemento "desk
     if (!isProductDetailClosed) { /*si el elemento "product-detail" no esta cerrado (!isProductDetailClosed (! para negacion))*/
     shoppingCartContainer.classList.add('inactive'); /*entonces se usa el metodo "add", para llamar el elemento "inactive", para cerrarlo*/
     }
+
+    closeProductDetailAside(); /*se llama la funcion para que cierre el detalle del producto cuando se abra el desktop-menu*/
 
     desktopMenu.classList.toggle('inactive');
 
@@ -44,6 +52,8 @@ function toggleMobileMenu() {
     if (!isProductDetailClosed) { /*si el elemento "product-detail" no esta cerrado (!isProductDetailClosed (! para negacion))*/
     shoppingCartContainer.classList.add('inactive'); /*entonces se usa el metodo "add", para llamar el elemento "inactive", para cerrarlo*/
     }
+
+    closeProductDetailAside(); /*se llama la funcion para que cierre el detalle del producto cuando se abra el menu mobile*/
 
     mobileMenu.classList.toggle('inactive');
 
@@ -62,8 +72,24 @@ function toggleProductDetail() {
         desktopMenu.classList.add('inactive'); /*entonces se usa el metodo "add", para llamar el elemento "inactive", para cerrarlo*/
     }
 
+    const isProductDetailClosed = productDetailContainer.classList.contains('inactive');
+
+    if (!isProductDetailClosed) { /*si el elemento "product-detail" no esta cerrado (!isisProductDetailClosed (! para negacion))*/
+        productDetailContainer.classList.add('inactive'); /*entonces se usa el metodo "add", para llamar el elemento "inactive", para cerrarlo*/
+    }
+
     shoppingCartContainer.classList.toggle('inactive');
 
+}
+
+function openProductDetailAside() {
+  shoppingCartContainer.classList.add('inactive'); /*se indica que desactive el carrito cuando se esta abriendo el detalle del producto*/
+  desktopMenu.classList.add('inactive'); /*se indica que desactive el menu de escritorio cuando se esta abriendo el detalle del producto*/
+  productDetailContainer.classList.remove('inactive'); /*funcion que desactiva la clase inactive para que se permita mostrar los detalles del producto cuando se de click en la imagen*/
+}
+
+function closeProductDetailAside() {
+  productDetailContainer.classList.add('inactive'); /*funcion que activa la clase inactive para que se cierren los detalles del producto cuando se de click en la "X"*/
 }
 
 const productList = [];
@@ -108,13 +134,14 @@ productList.push({
 
 /*"product of productList" es el "atajo" para la sintaxis del ciclo "for", del array "productList" va a iterar cada elementos (product)*/
 for (product of productList) {
-      
+
     const productCard = document.createElement('div'); /*"document.createElement('div')" para introducir el elemento "div" al index*/
     productCard.classList.add('product-card'); /*dentro del "productCard" (div) se creara la clase (classList) "product-card"*/
 
     const img = document.createElement('img');
     img.setAttribute('src', product.image); /*al elemento "image" del objeto "productList" (en este "for" designado como "product")
                     se le agregara la imagen designada en el objeto*/
+    img.addEventListener('click', openProductDetailAside); /*evento para cuando se de click en la imagen del prod. muestre su detalle*/
 
     const productInfo = document.createElement('div'); /*"document.createElement('div')" para introducir el elemento "div" al index*/
     productInfo.classList.add('product-info'); /*dentro del "productInfo" (div) se creara la clase (classList) "product-info"*/
