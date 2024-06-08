@@ -127,8 +127,8 @@
     position: absolute;
     top: 60px;
     left: 0;
-    width: 100%;
-    padding: 24px;
+    width: calc(100% - 24px); /*calcula el 100% del espacio de la pantalla en version mobile y le resta los 24px del padding*/
+    padding-left: 24px; /*solo asignar 24px a la izquierda*/
   }
   .mobile-menu a {
     text-decoration: none;
